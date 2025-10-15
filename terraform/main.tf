@@ -8,7 +8,7 @@ module "shared_services" {
   control_tower_parameters = {
     AccountEmail              = "aws-attest-ct+shared-services@askattest.com"
     AccountName               = "${local.account_name_prefix}-shared-services"
-    ManagedOrganizationalUnit = null # root
+    ManagedOrganizationalUnit = "Root"
     SSOUserEmail              = "emmanuel.pius-ogiji@askattest.com"
     SSOUserFirstName          = "Emmanuel"
     SSOUserLastName           = "Pius-Ogiji"
