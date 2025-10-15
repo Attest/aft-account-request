@@ -26,6 +26,7 @@ module "shared_services" {
 
   custom_fields = {
     group = "infrastructure"
+    description = "Shared infrastructure for the organization like DNS, networking etc"
   }
 
   account_customizations_name = "shared-services"
