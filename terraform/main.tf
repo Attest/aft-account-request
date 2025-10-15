@@ -1,27 +1,32 @@
-module "sandbox" {
+locals {
+  account_name_prefix = "attest-ct"
+}
+
+module "shared_services" {
   source = "./modules/aft-account-request"
 
   control_tower_parameters = {
-    AccountEmail              = "<ACCOUNT EMAIL>"
-    AccountName               = "sandbox-aft"
-    ManagedOrganizationalUnit = "Learn AFT"
-    SSOUserEmail              = "<SSO EMAIL>"
-    SSOUserFirstName          = "Sandbox"
-    SSOUserLastName           = "AFT"
+    AccountEmail              = "aws-attest-ct+shared-services@askattest.com"
+    AccountName               = "${local.account_name_prefix}-shared-services"
+    ManagedOrganizationalUnit = null # root
+    SSOUserEmail              = "emmanuel.pius-ogiji@askattest.com"
+    SSOUserFirstName          = "Emmanuel"
+    SSOUserLastName           = "Pius-Ogiji"
   }
 
   account_tags = {
-    "Learn Tutorial" = "AFT"
+    Name      = "shared-services",
+    ManagedBy = "AFT"
   }
 
   change_management_parameters = {
-    change_requested_by = "HashiCorp Learn"
-    change_reason       = "Learn AWS Control Tower Account Factory for Terraform"
+    change_requested_by = "Emmanuel Pius-Ogiji"
+    change_reason       = "https://app.shortcut.com/attest/story/136343/step-1-deploy-aws-control-tower-and-the-landing-zone"
   }
 
   custom_fields = {
-    group = "non-prod"
+    group = "infrastructure"
   }
 
-  account_customizations_name = "sandbox"
+  account_customizations_name = "shared-services"
 }
