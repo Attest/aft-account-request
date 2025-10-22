@@ -121,3 +121,33 @@ module "prod" {
 
   account_customizations_name = "prod"
 }
+
+module "dr" {
+  source = "./modules/aft-account-request"
+
+  control_tower_parameters = {
+    AccountEmail              = "aws-attest-ct+dr@askattest.com"
+    AccountName               = "${local.account_name_prefix}-dr"
+    ManagedOrganizationalUnit = "DisasterRecovery"
+    SSOUserEmail              = "emmanuel.pius-ogiji@askattest.com"
+    SSOUserFirstName          = "Emmanuel"
+    SSOUserLastName           = "Pius-Ogiji"
+  }
+
+  account_tags = {
+    Name      = "prod",
+    ManagedBy = "AFT"
+  }
+
+  change_management_parameters = {
+    change_requested_by = "Emmanuel Pius-Ogiji"
+    change_reason       = "https://app.shortcut.com/attest/story/136343/step-1-deploy-aws-control-tower-and-the-landing-zone"
+  }
+
+  custom_fields = {
+    group       = "DisasterRecovery"
+    description = "DisasterRecovery: dr"
+  }
+
+  account_customizations_name = "dr"
+}
