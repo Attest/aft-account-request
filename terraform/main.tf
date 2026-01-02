@@ -122,6 +122,36 @@ module "prod" {
   account_customizations_name = "prod"
 }
 
+module "new_ventures" {
+  source = "./modules/aft-account-request"
+
+  control_tower_parameters = {
+    AccountEmail              = "aws-attest-ct+new-ventures@askattest.com"
+    AccountName               = "${local.account_name_prefix}-new-ventures"
+    ManagedOrganizationalUnit = "Workloads"
+    SSOUserEmail              = "nikita.maximov@askattest.com"
+    SSOUserFirstName          = "Nikita"
+    SSOUserLastName           = "Maximov"
+  }
+
+  account_tags = {
+    Name      = "new-ventures",
+    ManagedBy = "AFT"
+  }
+
+  change_management_parameters = {
+    change_requested_by = "Emmanuel Pius-Ogiji"
+    change_reason       = "https://app.shortcut.com/attest/story/142375/set-up-aws-account-for-new-ventures-infrastructure"
+  }
+
+  custom_fields = {
+    group       = "workloads"
+    description = "Workloads: New Ventures"
+  }
+
+  account_customizations_name = "new-ventures"
+}
+
 module "dr" {
   source = "./modules/aft-account-request"
 
