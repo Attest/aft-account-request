@@ -140,7 +140,7 @@ module "new_ventures" {
   }
 
   change_management_parameters = {
-    change_requested_by = "Emmanuel Pius-Ogiji"
+    change_requested_by = "Nikita Maximov"
     change_reason       = "https://app.shortcut.com/attest/story/142375/set-up-aws-account-for-new-ventures-infrastructure"
   }
 
