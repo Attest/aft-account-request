@@ -50,7 +50,6 @@ module "dev" {
   account_tags = {
     Name          = "dev",
     ManagedBy     = "AFT"
-    account_alias = "workloads-dev"
   }
 
   change_management_parameters = {
@@ -61,6 +60,7 @@ module "dev" {
   custom_fields = {
     group       = "workloads"
     description = "Workloads: Development"
+    account_alias = "workloads-dev"
   }
 
   account_customizations_name = "dev"
