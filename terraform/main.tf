@@ -2,6 +2,8 @@ locals {
   account_name_prefix = "attest-ct"
 }
 
+# Note account_alias has to be between 3 and 63 characters.
+
 module "shared_services" {
   source = "./modules/aft-account-request"
 
@@ -48,7 +50,7 @@ module "dev" {
   account_tags = {
     Name          = "dev",
     ManagedBy     = "AFT"
-    account_alias = "dev"
+    account_alias = "workloads-dev"
   }
 
   change_management_parameters = {
@@ -89,7 +91,7 @@ module "qa" {
   custom_fields = {
     group         = "workloads"
     description   = "Workloads: QA"
-    account_alias = "qa"
+    account_alias = "workloads-qa"
   }
 
   account_customizations_name = "qa"
@@ -120,7 +122,7 @@ module "prod" {
   custom_fields = {
     group         = "workloads"
     description   = "Workloads: Production"
-    account_alias = "prod"
+    account_alias = "workloads-prod"
   }
 
   account_customizations_name = "prod"
@@ -182,7 +184,7 @@ module "dr" {
   custom_fields = {
     group         = "DisasterRecovery"
     description   = "DisasterRecovery: dr"
-    account_alias = "dr"
+    account_alias = "infra-dr"
   }
 
   account_customizations_name = "dr"
