@@ -25,8 +25,9 @@ module "shared_services" {
   }
 
   custom_fields = {
-    group       = "infrastructure"
-    description = "Shared infrastructure for the organization like DNS, networking etc"
+    group         = "infrastructure"
+    description   = "Shared infrastructure for the organization like DNS, networking etc"
+    account_alias = "shared-services"
   }
 
   account_customizations_name = "shared-services"
@@ -45,8 +46,9 @@ module "dev" {
   }
 
   account_tags = {
-    Name      = "dev",
-    ManagedBy = "AFT"
+    Name          = "dev",
+    ManagedBy     = "AFT"
+    account_alias = "dev"
   }
 
   change_management_parameters = {
@@ -85,8 +87,9 @@ module "qa" {
   }
 
   custom_fields = {
-    group       = "workloads"
-    description = "Workloads: QA"
+    group         = "workloads"
+    description   = "Workloads: QA"
+    account_alias = "qa"
   }
 
   account_customizations_name = "qa"
@@ -115,8 +118,9 @@ module "prod" {
   }
 
   custom_fields = {
-    group       = "workloads"
-    description = "Workloads: Production"
+    group         = "workloads"
+    description   = "Workloads: Production"
+    account_alias = "prod"
   }
 
   account_customizations_name = "prod"
@@ -145,8 +149,9 @@ module "new_ventures" {
   }
 
   custom_fields = {
-    group       = "workloads"
-    description = "Workloads: New Ventures"
+    group         = "workloads"
+    description   = "Workloads: New Ventures"
+    account_alias = "new-ventures"
   }
 
   account_customizations_name = "new-ventures"
@@ -175,8 +180,9 @@ module "dr" {
   }
 
   custom_fields = {
-    group       = "DisasterRecovery"
-    description = "DisasterRecovery: dr"
+    group         = "DisasterRecovery"
+    description   = "DisasterRecovery: dr"
+    account_alias = "dr"
   }
 
   account_customizations_name = "dr"
