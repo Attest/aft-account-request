@@ -227,9 +227,23 @@ module "dr" {
 # the Log Archive account (`centralizedLogging`). See
 # aws-foundation-control-tower `docs/ARCHITECTURE.md`.
 #
-# Neither sets `account_customizations_name`: no matching directory exists in
-# aft-account-customizations, and the deploy role is a GLOBAL customization,
-# which is all that is required here.
+# Both set `account_customizations_name`, and it is not optional even though
+# neither account needs per-account customizations. `./modules/aft-account-request`
+# writes the attribute unconditionally --
+# `account_customizations_name = { S = var.account_customizations_name }` in
+# `ddb.tf` -- so leaving it at the module's `null` default renders
+# `{"S": null}` (verified with `terraform console`), and DynamoDB rejects a
+# string attribute with no value. Every one of the six pre-existing callers
+# passes a real name, which is why that path has never been exercised here.
+# Credit to Copilot on PR #7 for spotting it.
+#
+# The directories they name were added by aft-account-customizations
+# `1453a317` and are deliberately no-op scaffolds: all seven files in each are
+# byte-identical (compared by git blob SHA) to `dr/`, `prod/`, `dev/`, `qa/`,
+# `new-ventures/` and `shared-services/`. What actually unblocks these two
+# accounts is the GLOBAL customization -- `aft-global-customizations`
+# `terraform/roles.tf` -- which runs for every enrolled account regardless of
+# this value.
 #
 # The Control Tower MANAGEMENT account is deliberately NOT added. It is the one
 # core account reported to fail this path (`account:PutAlternateContact`, and
@@ -263,6 +277,8 @@ module "audit" {
     description   = "Security: audit (Control Tower Audit, securityRoles); GuardDuty + Security Hub delegated admin"
     account_alias = "${local.account_name_prefix}-audit"
   }
+
+  account_customizations_name = "audit"
 }
 
 module "security" {
@@ -292,4 +308,6 @@ module "security" {
     description   = "Security: security (Control Tower Log Archive, centralizedLogging)"
     account_alias = "${local.account_name_prefix}-security"
   }
+
+  account_customizations_name = "security"
 }
